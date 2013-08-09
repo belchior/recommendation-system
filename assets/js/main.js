@@ -38,8 +38,8 @@ $(function(){
 			
 			for (var i = 0; i < rates.length; i++) {
 				if( i <= myPosition ){
-					$(rates[i]).find('img').attr('src', IMG_DIR+'star-visited.png');
-					oldStars[i] = IMG_DIR+'star-visited.png';
+					$(rates[i]).find('img').attr('src', IMG_DIR+'star-user-visited.png');
+					oldStars[i] = IMG_DIR+'star-user-visited.png';
 				} else {
 					$(rates[i]).find('img').attr('src', IMG_DIR+'star.png');
 					oldStars[i] = IMG_DIR+'star.png';
@@ -53,7 +53,7 @@ $(function(){
 				url: base_url('rate/thisPost/'+post+'/'+value),
 				success: function(ret){
 					if( ret ){
-						alert(ret);
+						// alert(ret);
 					} else {
 						alert('Ocoreu um problema ao salvar sua nota.');
 					}

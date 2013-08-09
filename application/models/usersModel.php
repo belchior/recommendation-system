@@ -7,6 +7,8 @@ class usersModel extends CI_Model{
 
 	public function get($user){
 		isset($user['id']) && $user['id'] ? $this->db->where('iduser', $user['id']) : false;
+		isset($user['email']) && $user['email'] ? $this->db->where('email', $user['email']) : false;
+		isset($user['password']) && $user['password'] ? $this->db->where('password', do_hash($user['password'])) : false;
 		$query = $this->db->get('users');
 		return $query->result_array();
 	}
@@ -59,6 +61,18 @@ class usersModel extends CI_Model{
 		$user['image'] = '';
 		$user['preferences'] = '';
 		$this->session->unset_userdata($user);
+	}
+
+	public function getUserSession(){
+		if( !$this->session->userdata('iduser') ){
+			return false;
+		}
+		$user['iduser'] = $this->session->userdata('iduser');
+		$user['email'] = $this->session->userdata('email');
+		$user['username'] = $this->session->userdata('username');
+		$user['image'] = $this->session->userdata('image');
+		$user['preferences'] = $this->session->userdata('preferences');
+		return $user;
 	}
 
 }

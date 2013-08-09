@@ -69,15 +69,11 @@ class RatingsModel extends CI_Model{
 	}
 
 	public function getRating($post){
+		$this->db->select_avg('value');
 		$this->db->where('idpost', $post['idpost']);
-		$query = $this->db->get('ratings');
-		$rate = 0;
-		if( $query->num_rows() ){
-			foreach ($query->result_array() as $rating ) {
-				$rate += (int)$rating['value'];
-			}
-		}
-		return $rate;
+		$rate = $this->db->get('ratings');
+		$rate = $rate->result_array();
+		return $rate[0]['value'] ? (int)$rate[0]['value'] : 0;
 	}
 
 	public function getUserRating($post, $iduser){

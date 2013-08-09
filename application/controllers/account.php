@@ -5,7 +5,6 @@ class Account extends CI_Controller{
 
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('usersModel');
 		$this->load->library('form_validation');
 	}
 
@@ -15,16 +14,15 @@ class Account extends CI_Controller{
 	}
 
 	public function create(){
-		$this->usersModel->logout()
+		$this->usersModel->logout();
 		$data['message'] = $this->session->userdata('message');
 		$this->session->unset_userdata('message');
-		$data['content'] = $this->load->view('account/create', $data, true);
-		$this->load->view('template', $data);
+		$this->template->load('template', 'account/create', $data);
 	}
 
 	public function alter(){
-		$user['id'] = $this->session->userdata('iduser');
-		if( !$user['id'] ){
+		$user = $this->usersModel->getUserSession();
+		if( !$user['iduser'] ){
 			$this->session->set_userdata('message', 'Usuário não encontrado, use o formulário abaixo para criar um.');
 			redirect(base_url('account/create'));
 		}
@@ -39,17 +37,22 @@ class Account extends CI_Controller{
 	}
 
 	public function save(){
-		if( !$this->session->userdata('iduser') ){
-			$this->insert();
+		if( !$this->usersModel->getUserSession() ){
+			$user = $this->insert();
+			$this->usersModel->login($user);
+			$this->session->set_userdata('message', 'Sua conta foi criada com sucesso.');
+
 		} else {
 			$this->update();
+			$this->session->set_userdata('message', 'Sua conta foi alterada com sucesso.');
 		}
+
+		redirect(base_url("account/alter"));
 	}
 
 	private function insert(){
 		if( ! $this->usersModel->validate() ){
-			$data['content'] = $this->load->view('create', '', true);
-			return $this->load->view('template', $data);
+			return $this->template->load('template', 'create');
 		}
 		
 		$user = array();
@@ -57,11 +60,8 @@ class Account extends CI_Controller{
 		$user['email'] = $this->input->post('email');
 		$user['password'] = $this->input->post('password');
 		$user['preferences'] = $this->input->post('preferences');
-		$id = $this->usersModel->insert($user);
-
-		$this->session->set_userdata('iduser', $id);
-		$this->session->set_userdata('message', 'Sua conta foi criada com sucesso.');
-		redirect(base_url("account/alter"));
+		$user['iduser'] = $this->usersModel->insert($user);
+		return $user;
 	}
 
 	private function update(){
@@ -77,9 +77,6 @@ class Account extends CI_Controller{
 		$user['password'] = $this->input->post('password');
 		$user['preferences'] = $this->input->post('preferences');
 		$this->usersModel->update($user);
-
-		$this->session->set_userdata('message', 'Sua conta foi alterada com sucesso.');
-		redirect(base_url("account/alter"));
 	}
 
 }
