@@ -1,0 +1,54 @@
+body {
+	margin: 0;
+	font-family: "Heuvetica Neue", Heuvetiva, Arial;
+	font-size: 1em;
+	
+}
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1em; }
+header {
+	float: left;
+	border-bottom: 1px solid #dddddd; width: 100%;
+}
+article {
+	float: left;
+	margin-right: 10px; width: calc(70% - 10px);
+}
+aside {
+	float: left;
+	width: 30%;
+}
+footer {
+	float: left;
+	width: 100%;
+}
+
+.f-left { float: left; }
+.f-right { float: right; }
+.t-left { text-align: left; }
+.t-center { text-align: center; }
+.t-right { text-align: right; }
+.t-justify { text-align: justify; }
+.hide { display: none; }
+.main { 
+	margin: auto; width: 1000px;
+	background-color: #eeeeee; 
+}
+.post { margin: 10px 0; border: dotted; border-width: 1px 0; padding: 10px 0; }
+.post h2 { margin: 0; }
+.post-img { margin-right: 10px; }
+.post-text { clear: both; }
+.leia-mais { display: block; }
+.box-rate {
+	float: right;
+	margin-top: -30px; width: 150px; height: 30px;
+}
+.rate { float: left; }
+.login {
+	position: absolute;
+	margin: -50px 0  0 calc(1000px - 242px); 
+	border: 1px solid #dddddd; border-radius: 5px; padding: 10px;
+	background-color: #fafafa;
+}
+.novo {}
