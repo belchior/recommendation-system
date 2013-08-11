@@ -24,6 +24,7 @@ footer {
 	width: 100%;
 }
 
+.bold { font-weight: bold;}
 .f-left { float: left; }
 .f-right { float: right; }
 .t-left { text-align: left; }
@@ -35,7 +36,7 @@ footer {
 	margin: auto; width: 1000px;
 	background-color: #eeeeee; 
 }
-.movie { margin: 10px 0; border: dotted; border-width: 1px 0; padding: 10px 0; }
+.movie { margin: 10px 0; border: dotted; border-width: 1px 0; padding: 10px 0; width: 100%; }
 .movie h2 { margin: 0; }
 .movie-logo { margin-right: 10px; }
 .movie-synopses { clear: both; }
@@ -51,4 +52,4 @@ footer {
 	border: 1px solid #dddddd; border-radius: 5px; padding: 10px;
 	background-color: #fafafa;
 }
-.novo {}
+
