@@ -7,10 +7,10 @@ class Home extends CI_Controller {
 		// 	echo "{$k} - {$v}<br>";
 		// }
 		// die();
-		$this->load->model('postsModel');
+		$this->load->model('moviesModel');
 		$this->load->model('ratingsModel');
-		$data['posts'] = $this->postsModel->get();
-		$data['posts'] = $this->ratingsModel->generateRatings($data['posts'], $this->session->userdata('iduser'));
+		$data['movies'] = $this->moviesModel->get();
+		$data['movies'] = $this->ratingsModel->generateRatings($data['movies'], $this->session->userdata('iduser'));
 		$this->template->load('template', 'home', $data);
 	}
 	

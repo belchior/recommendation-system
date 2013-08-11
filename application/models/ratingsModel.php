@@ -6,7 +6,7 @@ class RatingsModel extends CI_Model{
 	}
 
 	public function insert($rate){
-		$this->db->set('idpost', $rate['idpost']);
+		$this->db->set('idmovie', $rate['idmovie']);
 		$this->db->set('iduser', $rate['iduser']);
 		$this->db->set('value', $rate['value']);
 		$this->db->insert('ratings');
@@ -15,14 +15,14 @@ class RatingsModel extends CI_Model{
 
 	public function update($rate){
 		$this->db->set('value', $rate['value']);
-		$this->db->where('idpost', $rate['idpost']);
+		$this->db->where('idmovie', $rate['idmovie']);
 		$this->db->where('iduser', $rate['iduser']);
 		return $this->db->update('ratings');
 	}
 
 	public function validate($rate){
 
-		if( !isset($rate['idpost']) || (int)$rate['idpost'] === 0 || strlen($rate['idpost']) > 11 ){
+		if( !isset($rate['idmovie']) || (int)$rate['idmovie'] === 0 || strlen($rate['idmovie']) > 11 ){
 			return false;
 		}
 
@@ -38,46 +38,46 @@ class RatingsModel extends CI_Model{
 	}
 
 	public function isRated($rate){
-		$this->db->where('idpost', $rate['idpost']);
+		$this->db->where('idmovie', $rate['idmovie']);
 		$this->db->where('iduser', $rate['iduser']);
 		$query = $this->db->get('ratings');
 		return $query->num_rows() ? true : false;
 	}
 
-	public function generateRatings($posts, $iduser){
-		if( !is_array($posts) ){
-			return $posts;
+	public function generateRatings($movies, $iduser){
+		if( !is_array($movies) ){
+			return $movies;
 		}
 
 		if( $iduser ){
-			foreach( $posts as $key => $post ){
-				$posts[$key]['rating'] = $this->getUserRating($post, $iduser);
-				$posts[$key]['userRating'] = true;
-				if( !$posts[$key]['rating'] ){
-					$posts[$key]['rating'] = $this->getRating($post);
-					$posts[$key]['userRating'] = false;
+			foreach( $movies as $key => $movie ){
+				$movies[$key]['rating'] = $this->getUserRating($movie, $iduser);
+				$movies[$key]['userRating'] = true;
+				if( !$movies[$key]['rating'] ){
+					$movies[$key]['rating'] = $this->getRating($movie);
+					$movies[$key]['userRating'] = false;
 				}
 			}	
 		} else {
-			foreach( $posts as $key => $post ){
-				$posts[$key]['rating'] = $this->getRating($post);
-				$posts[$key]['userRating'] = false;
+			foreach( $movies as $key => $movie ){
+				$movies[$key]['rating'] = $this->getRating($movie);
+				$movies[$key]['userRating'] = false;
 			}
 		}
 		
-		return $posts;
+		return $movies;
 	}
 
-	public function getRating($post){
+	public function getRating($movie){
 		$this->db->select_avg('value');
-		$this->db->where('idpost', $post['idpost']);
+		$this->db->where('idmovie', $movie['idmovie']);
 		$rate = $this->db->get('ratings');
 		$rate = $rate->result_array();
 		return $rate[0]['value'] ? (int)$rate[0]['value'] : 0;
 	}
 
-	public function getUserRating($post, $iduser){
-		$this->db->where('idpost', $post['idpost']);
+	public function getUserRating($movie, $iduser){
+		$this->db->where('idmovie', $movie['idmovie']);
 		$this->db->where('iduser', $iduser);
 		$query = $this->db->get('ratings');
 		$query = $query->result_array();

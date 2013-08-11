@@ -35,10 +35,10 @@ footer {
 	margin: auto; width: 1000px;
 	background-color: #eeeeee; 
 }
-.post { margin: 10px 0; border: dotted; border-width: 1px 0; padding: 10px 0; }
-.post h2 { margin: 0; }
-.post-img { margin-right: 10px; }
-.post-text { clear: both; }
+.movie { margin: 10px 0; border: dotted; border-width: 1px 0; padding: 10px 0; }
+.movie h2 { margin: 0; }
+.movie-logo { margin-right: 10px; }
+.movie-synopses { clear: both; }
 .leia-mais { display: block; }
 .box-rate {
 	float: right;
