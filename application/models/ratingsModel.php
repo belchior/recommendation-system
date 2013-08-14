@@ -44,7 +44,7 @@ class RatingsModel extends CI_Model{
 		return $query->num_rows() ? true : false;
 	}
 
-	public function generateRatings($movies, $iduser){
+	public function generateRatings($movies, $iduser = ''){
 		if( !is_array($movies) ){
 			return $movies;
 		}
@@ -84,7 +84,25 @@ class RatingsModel extends CI_Model{
 		return count($query) ? (int)$query[0]['value'] : 0;
 	}
 
+	public function getUserRecommendations($user){
+		$query = $this->db->query("
+			select movies.idmovie, movies.director, movies.title, movies.synopses, movies.logo, avg(value) as rating
+			from movies 
+				inner join movies_has_genres using(idmovie)
+				left join ratings using(idmovie)
+			where 
+				idgenre in (
+					select idgenre 
+					from users inner join users_has_genres using(iduser)
+					where users.iduser = {$user['iduser']}
+				)
+				and (ratings.iduser is null or ratings.iduser <> {$user['iduser']})
+			group by movies.idmovie
+			order by value desc
+		");
 
+		return $query->num_rows() ? $query->result_array() : false;
+	}
 
 
 

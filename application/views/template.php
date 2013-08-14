@@ -18,7 +18,45 @@
 		<article>
 			<?php echo isset($content) ? $content : ''?>
 		</article>
-		<aside></aside>
+		<aside>
+			<?php
+			if( isset($recommendations) ){
+				?>
+				<h2 class="t-center">Recomendações</h2>
+				<div class="recommendation">
+					<div class="slider">
+						<ul>
+							<?php
+							foreach( $recommendations as $rec ){
+								?>
+								<li>
+									<h3><?=$rec['title']?></h3>
+									<div class="box-rate">
+										<?php
+										for( $i=1; $i<=5; $i++ ){
+											$star = $rec['rating'] >= $i ? 'star-visited.png' : 'star.png';
+											echo "
+											<a href='#' class='rate'>
+												<img alt='estrela' src='".IMG_DIR.$star."' width='30' height='30'>
+											</a>
+											";
+										}
+										?>
+									</div>
+									<img src="<?=IMG_DIR.$rec['logo']?>" alt="imagem" width="200" height="200">
+								</li>
+								<?php
+							}
+							?>
+						</ul>
+						<a href="#" class="back"><i class="icon-circle-arrow-left"></i></a>
+						<a href="#" class="forward"><i class="icon-circle-arrow-right"></i></a>
+					</div>
+				</div>
+				<?php
+			}
+			?>
+		</aside>
 		<footer></footer>
 	</div>
 </body>

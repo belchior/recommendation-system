@@ -5,11 +5,11 @@ class Rate extends CI_Controller{
 
 	}
 
-	public function thisPost(){
+	public function thisMovie(){
 		$this->input->is_ajax_request() ? true : die('Não foi possível concluir sua requisição');
 		$this->load->model('ratingsModel');
 		$rate['iduser'] = $this->session->userdata('iduser');
-		$rate['idpost'] = $this->uri->segment(3);
+		$rate['idmovie'] = $this->uri->segment(3);
 		$rate['value'] = $this->uri->segment(4);
 
 		if( $this->ratingsModel->validate($rate) ){

@@ -4,9 +4,11 @@ body {
 	font-size: 1em;
 	
 }
+
 h1 { font-size: 2em; }
 h2 { font-size: 1.5em; }
-h3 { font-size: 1em; }
+h3 { font-size: 1em; line-height: 24px; }
+
 header {
 	float: left;
 	border-bottom: 1px solid #dddddd; width: 100%;
@@ -40,16 +42,47 @@ footer {
 .movie h2 { margin: 0; }
 .movie-logo { margin-right: 10px; }
 .movie-synopses { clear: both; }
-.leia-mais { display: block; }
-.box-rate {
+.movie .box-rate {
 	float: right;
 	margin-top: -30px; width: 150px; height: 30px;
 }
-.rate { float: left; }
+.movie .rate, .recommendation .rate { float: left; }
+.leia-mais { display: block; }
 .login {
 	position: absolute;
 	margin: -50px 0  0 calc(1000px - 242px); 
 	border: 1px solid #dddddd; border-radius: 5px; padding: 10px;
 	background-color: #fafafa;
 }
+.recommendation { 
+	position: inherit; top: 12px; text-align: center; 
+	width: 300px;
+}
+.recommendation h3 { margin: 0; }
+.recommendation .box-rate {
+    margin: 0 0 5px 74px;
+    width: 150px;
+    height: 30px;
+}
+
+
+
+.slider {
+    overflow: hidden;
+    border: 1px solid #dddddd;
+    border-radius: 7px;
+}
+.slider ul {
+    list-style: none;
+    margin: 0;
+}
+.slider ul li {
+    float: left;
+    width: 300px;
+}
+.slider .back {}
+.slider .forward {}
+
+
+
 

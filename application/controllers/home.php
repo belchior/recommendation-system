@@ -3,14 +3,14 @@
 class Home extends CI_Controller {
 
 	public function index(){
-		// foreach( $this->session->all_userdata() as  $k => $v ){
-		// 	echo "{$k} - {$v}<br>";
-		// }
-		// die();
 		$this->load->model('moviesModel');
 		$this->load->model('ratingsModel');
 		$data['movies'] = $this->moviesModel->get();
 		$data['movies'] = $this->ratingsModel->generateRatings($data['movies'], $this->session->userdata('iduser'));
+		if( $user = $this->usersModel->getUserSession() ){
+			$data['recommendations'] = $this->ratingsModel->getUserRecommendations($user);
+			// die(var_dump($data['recommendations']));
+		}
 		$this->template->load('template', 'home', $data);
 	}
 	

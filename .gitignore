@@ -1,6 +1,6 @@
-.DS_Store
+*.DS_Store
 .buildpath
 .project
-.settings
+*.settings
 tcc-diagram.mwb.bak
 user_guide/*

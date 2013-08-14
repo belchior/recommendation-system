@@ -3,11 +3,6 @@ $(function(){
 		return 'http://localhost/tcc/'+segment;
 	}
 
-	function rate(post, value){
-		var boxRate = post.find('.rate');
-	}
-
-
 //	console.log();	
 	var IMG_DIR = 'assets/img/';
 	var oldStars = Array();
@@ -32,7 +27,8 @@ $(function(){
 			e.preventDefault();
 			var rates = $(this).parent().children();
 			var myPosition = $(this).prevAll().length;
-			var post = $(this).parents('.post')[0].dataset.postid;
+			var movie = $(this).parents('.movie')[0].dataset.movieid;
+			
 			var value = myPosition+1;
 			
 			
@@ -46,15 +42,12 @@ $(function(){
 				}
 			};
 
-
 			$.ajax({
 				type: 'get',
 				dataType: 'html',
-				url: base_url('rate/thisPost/'+post+'/'+value),
+				url: base_url('rate/thismovie/'+movie+'/'+value),
 				success: function(ret){
-					if( ret ){
-						// alert(ret);
-					} else {
+					if( !ret ){
 						alert('Ocoreu um problema ao salvar sua nota.');
 					}
 					
@@ -78,8 +71,31 @@ $(function(){
 		$('input[name=validatePassword]').val('1');
 		$('input[name=password]').focus();
 	});
-
-
-
+	
+	$(window).on('scroll', function(e){		
+		if( $(this).scrollTop() > 114 ){
+			$('.recommendation').css('position', 'fixed');
+		} else {
+			$('.recommendation').css('position', 'inherit');
+		}
+	});
+	
+	// slider
+	$('.slider ul').css('width', (300 * $('.slider ul').children().length)+'px' );
+	$('.slider .back').on('click', function(e){
+		e.preventDefault();
+		var value = 300 + (1 * $('.slider ul').css('margin-left').split('px')[0]);
+		value = value > 0 ? '-'+(Math.abs($('.slider ul').css('width').split('px')[0]) - 300) : value;
+		$('.slider ul').animate({'margin-left': value}, 600);
+	});
+	$('.slider .forward').on('click', function(e){
+		e.preventDefault();
+		var value = -300 + (1 * $('.slider ul').css('margin-left').split('px')[0]);
+		value = Math.abs(value) < Math.abs($('.slider ul').css('width').split('px')[0]) ? value : 0;
+		$('.slider ul').animate({'margin-left': value}, 600);
+	});
+	
+	
+	
 
 });

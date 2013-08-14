@@ -2,7 +2,7 @@
 foreach( $movies as $movie ){
 	?>
 	<section class="f-left movie" data-movieid="<?=$movie['idmovie']?>">
-		<h2><?=$movie['title']?></h2>
+		<h2><?="{$movie['title']} - {$movie['genre']}"?></h2>
 		<div class="t-right box-rate">
 			<?php
 			for( $i=1; $i <= 5; $i++ ){
