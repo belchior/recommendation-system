@@ -73,6 +73,7 @@ foreach( $attributes as $attr ){
 		<label class="control-label clear"></label>
 		<div class="form-actions">
 			<input type="submit" value="Alterar conta" class="btn btn-primary">
+			<a href="<?=base_url()?>" class="btn">voltar para home</a>
 		</div>
 	</fieldset>
 <?=form_close()?>

@@ -9,7 +9,6 @@ class Home extends CI_Controller {
 		$data['movies'] = $this->ratingsModel->generateRatings($data['movies'], $this->session->userdata('iduser'));
 		if( $user = $this->usersModel->getUserSession() ){
 			$data['recommendations'] = $this->ratingsModel->getUserRecommendations($user);
-			// die(var_dump($data['recommendations']));
 		}
 		$this->template->load('template', 'home', $data);
 	}

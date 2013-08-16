@@ -86,19 +86,23 @@ class RatingsModel extends CI_Model{
 
 	public function getUserRecommendations($user){
 		$query = $this->db->query("
-			select movies.idmovie, movies.director, movies.title, movies.synopses, movies.logo, avg(value) as rating
-			from movies 
-				inner join movies_has_genres using(idmovie)
-				left join ratings using(idmovie)
-			where 
-				idgenre in (
-					select idgenre 
-					from users inner join users_has_genres using(iduser)
-					where users.iduser = {$user['iduser']}
+			SELECT movies.idmovie, movies.director, movies.title, movies.synopses, movies.logo, AVG(value) AS rating
+			FROM movies 
+				INNER JOIN movies_has_genres USING(idmovie)
+				LEFT JOIN ratings USING(idmovie)
+			WHERE 
+				idgenre IN (
+					SELECT idgenre 
+					FROM users INNER JOIN users_has_genres USING(iduser)
+					WHERE users.iduser = {$user['iduser']}
 				)
-				and (ratings.iduser is null or ratings.iduser <> {$user['iduser']})
-			group by movies.idmovie
-			order by value desc
+				AND movies.idmovie NOT IN (
+					SELECT idmovie 
+					FROM ratings 
+					WHERE iduser = {$user['iduser']}
+				)
+			GROUP BY movies.idmovie
+			ORDER BY value DESC
 		");
 
 		return $query->num_rows() ? $query->result_array() : false;

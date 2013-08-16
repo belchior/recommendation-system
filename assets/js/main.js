@@ -27,7 +27,7 @@ $(function(){
 			e.preventDefault();
 			var rates = $(this).parent().children();
 			var myPosition = $(this).prevAll().length;
-			var movie = $(this).parents('.movie')[0].dataset.movieid;
+			var movie = $(this).parents('.box-rate')[0].dataset.movieid;
 			
 			var value = myPosition+1;
 			

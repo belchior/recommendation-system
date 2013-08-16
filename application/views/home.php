@@ -1,9 +1,9 @@
 <?php 
 foreach( $movies as $movie ){
 	?>
-	<section class="f-left movie" data-movieid="<?=$movie['idmovie']?>">
+	<section class="f-left movie">
 		<h2><?="{$movie['title']} - {$movie['genre']}"?></h2>
-		<div class="t-right box-rate">
+		<div class="t-right box-rate" data-movieid="<?=$movie['idmovie']?>">
 			<?php
 			for( $i=1; $i <= 5; $i++ ){
 				$star = 'star.png';

@@ -20,7 +20,7 @@
 		</article>
 		<aside>
 			<?php
-			if( isset($recommendations) ){
+			if( isset($recommendations) && is_array($recommendations)){
 				?>
 				<h2 class="t-center">Recomendações</h2>
 				<div class="recommendation">
@@ -31,7 +31,7 @@
 								?>
 								<li>
 									<h3><?=$rec['title']?></h3>
-									<div class="box-rate">
+									<div class="box-rate" data-movieid="<?=$rec['idmovie']?>">
 										<?php
 										for( $i=1; $i<=5; $i++ ){
 											$star = $rec['rating'] >= $i ? 'star-visited.png' : 'star.png';
