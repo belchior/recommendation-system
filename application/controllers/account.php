@@ -5,6 +5,7 @@ class Account extends CI_Controller{
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('genresModel');
 		$this->load->library('form_validation');
 	}
 
@@ -17,6 +18,7 @@ class Account extends CI_Controller{
 		$this->usersModel->logout();
 		$data['message'] = $this->session->userdata('message');
 		$this->session->unset_userdata('message');
+		$data['genres'] = $this->genresModel->get();
 		$this->template->load('template', 'account/create', $data);
 	}
 
@@ -32,8 +34,9 @@ class Account extends CI_Controller{
 		$data['validatePassword'] = $this->validatePassword;
 		$data['user'] = $this->usersModel->get($user);
 		$data['user'] = $data['user'][0];
-		$data['content'] = $this->load->view('account/alter', $data, true);
-		$this->load->view('template', $data);
+		$data['user']['genres'] = $this->usersModel->getGenres($data['user']);
+		$data['genres'] = $this->genresModel->get();
+		$this->template->load('template', 'account/alter', $data);
 	}
 
 	public function save(){
@@ -59,9 +62,8 @@ class Account extends CI_Controller{
 		$user['username'] = $this->input->post('username');
 		$user['email'] = $this->input->post('email');
 		$user['password'] = $this->input->post('password');
-		$user['preferences'] = $this->input->post('preferences');
-		$user['iduser'] = $this->usersModel->insert($user);
-		return $user;
+		$user['genres'] = $this->input->post('genres');
+		return $this->usersModel->insert($user);
 	}
 
 	private function update(){
@@ -75,8 +77,8 @@ class Account extends CI_Controller{
 		$user['username'] = $this->input->post('username');
 		$user['email'] = $this->input->post('email');
 		$user['password'] = $this->input->post('password');
-		$user['preferences'] = $this->input->post('preferences');
-		$this->usersModel->update($user);
+		$user['genres'] = $this->input->post('genres');
+		$this->usersModel->update($user, $this->validatePassword);
 	}
 
 }

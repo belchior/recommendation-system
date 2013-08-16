@@ -10,7 +10,7 @@ class Template {
 	public function load($template = '', $view = '', $data = array(), $return = false){
 		$this->ci =& get_instance();
 
-		if( $data['user'] = $this->ci->usersModel->getUserSession() ){
+		if( $data['userLogin'] = $this->ci->usersModel->getUserSession() ){
 			
 			$this->set('login', $this->ci->load->view('templateUser', $data, true));
 

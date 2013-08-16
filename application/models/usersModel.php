@@ -1,6 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class usersModel extends CI_Model{
 
+	public $iduser;
+	public $email;
+	public $username;
+	public $password;
+	public $image;
+
 	public function __construc(){
 		parent::__construc();
 	}
@@ -17,27 +23,45 @@ class usersModel extends CI_Model{
 		$this->db->set('username', $user['username']);
 		$this->db->set('email', $user['email']);
 		$this->db->set('password', $user['password']);
-		$this->db->set('preferences', $user['preferences']);
 		$this->db->insert('users');
-		return $this->db->insert_id();
+		$user['iduser'] = $this->db->insert_id();
+
+		if( isset($user['genres']) && is_array($user['genres']) ){
+			foreach( $user['genres'] as $genre ){
+				$this->db->set('iduser', $user['iduser']);
+				$this->db->set('idgenre', $genre);
+				$this->db->insert('users_has_genres');
+			}
+		}
+
+		return $user;
 	}
 
 	public function update($user, $updatePassword=true){
 		$this->db->set('username', $user['username']);
 		$this->db->set('email', $user['email']);
 		$updatePassword ? $this->db->set('password', $user['password']) : false;
-		$this->db->set('preferences', $user['preferences']);
 		$this->db->where('iduser', $user['iduser']);
-		return $this->db->update('users');
+		$this->db->update('users');
+
+		$this->db->where('iduser', $user['iduser']);
+		$this->db->delete('users_has_genres');
+		if( isset($user['genres']) && is_array($user['genres']) ){
+			foreach( $user['genres'] as $genre ){
+				$this->db->set('iduser', $user['iduser']);
+				$this->db->set('idgenre', $genre);
+				$this->db->insert('users_has_genres');
+			}
+		}
+
+		return true;
 	}
 
 	public function validate($validatePassword=true){
-		
 		$this->form_validation->set_error_delimiters('<span class="text-error">', '</span>');
 		$this->form_validation->set_rules('username', 'Nome de usuário', 'required|trim|strip_tags|max_length[100]');
-		$this->form_validation->set_rules('email', 'Email', 'required|trim||strip_tags|max_length[100]|valid_email');
+		$this->form_validation->set_rules('email', 'Email', 'required|trim|strip_tags|max_length[100]|valid_email');
 		$validatePassword ? $this->form_validation->set_rules('password', 'Senha', 'required|max_length[100]|do_hash') : false;
-		$this->form_validation->set_rules('preferences', 'Preferências', 'trim|strip_tags|max_length[500]');
 		return $this->form_validation->run();
 	}
 
@@ -59,7 +83,6 @@ class usersModel extends CI_Model{
 		$user['password'] = '';
 		$user['username'] = '';
 		$user['image'] = '';
-		$user['preferences'] = '';
 		$this->session->unset_userdata($user);
 	}
 
@@ -73,6 +96,14 @@ class usersModel extends CI_Model{
 		$user['image'] = $this->session->userdata('image');
 		$user['preferences'] = $this->session->userdata('preferences');
 		return $user;
+	}
+
+	public function getGenres($user){
+		$this->db->select('genres.idgenre, genre');
+		$this->db->join('genres', 'users_has_genres.idgenre = genres.idgenre', 'inner');
+		$this->db->where('iduser', $user['iduser']);
+		$query = $this->db->get('users_has_genres');
+		return $query->result_array();
 	}
 
 }
