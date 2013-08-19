@@ -13,7 +13,7 @@ class MoviesModel extends CI_Model {
 	}
 
 	public function get($movie = array()){
-		isset($movie['idmovie']) ? $this->db->where('idmovie', $movie['idmovie']) : false;
+		isset($movie['idmovie']) ? $this->db->where('movies.idmovie', $movie['idmovie']) : false;
 		$this->db->join('movies_has_genres', 'movies.idmovie = movies_has_genres.idmovie', 'inner');
 		$this->db->join('genres', 'movies_has_genres.idgenre = genres.idgenre', 'inner');
 		$this->db->group_by('movies.idmovie');
@@ -28,9 +28,21 @@ class MoviesModel extends CI_Model {
 	}
 
 	public function update(){
+		$this->db->set('director', $this->director);
+		$this->db->set('title', $this->title);
+		$this->db->set('synopses', $this->synopses);
 		$this->db->where('idmovie', $this->idmovie);
-		$this->db->update('movies', $this);
+		$this->db->update('movies');
 
+		$this->db->where('idmovie', $this->idmovie);
+		$this->db->delete('movies_has_genres');
+		if( is_array($this->genres) ){
+			foreach( $this->genres as $genre ){
+				$this->db->set('idmovie', $this->idmovie);
+				$this->db->set('idgenre', $genre);
+				$this->db->insert('movies_has_genres');
+			}
+		}
 		return true;
 	}
 
@@ -39,7 +51,6 @@ class MoviesModel extends CI_Model {
 		$this->form_validation->set_rules('director', 'Diretor', 'required|trim|strip_tags|max_length[100]');
 		$this->form_validation->set_rules('title', 'Título', 'required|trim|strip_tags|max_length[100]');
 		$this->form_validation->set_rules('synopses', 'Sinopse', 'required|trim|strip_tags');
-		$this->form_validation->set_rules('genres', 'Genero', 'trim|strip_tags');
 		return $this->form_validation->run();
 	}
 
@@ -57,5 +68,14 @@ class MoviesModel extends CI_Model {
 		}
 		return true;
 	}
+
+	public function getGenres($movie){
+		$this->db->select('genres.idgenre, genre');
+		$this->db->join('genres', 'movies_has_genres.idgenre = genres.idgenre', 'inner');
+		$this->db->where('idmovie', $movie['idmovie']);
+		$query = $this->db->get('movies_has_genres');
+		return $query->result_array();
+	}
+
 
 } 

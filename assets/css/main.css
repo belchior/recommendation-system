@@ -3,6 +3,7 @@ body {
 	font-family: "Heuvetica Neue", Heuvetiva, Arial;
 	font-size: 1em;
 	
+	background-color: #eeeeee;
 }
 
 h1 { font-size: 2em; }
@@ -13,6 +14,7 @@ header {
 	float: left;
 	border-bottom: 1px solid #dddddd; width: 100%;
 }
+header h1 { margin: 20px 0; }
 article {
 	float: left;
 	margin-right: 10px; width: calc(70% - 10px);
@@ -36,10 +38,14 @@ footer {
 .hide { display: none; }
 .clear { clear: both; }
 .main { 
-	margin: auto; width: 1000px;
-	background-color: #eeeeee; 
+	float: left;
+	box-sizing: border-box;
+	margin-left: calc(50% - 500px); 
+	padding: 0 10px;
+	width: 1000px; 
+	box-shadow: 0 0 10px #dddddd;
 }
-.movie { margin: 10px 0; border: dotted; border-width: 1px 0; padding: 10px 0; width: 100%; }
+.movie { margin: 10px 0; border-bottom: solid #dddddd; border-width: 1px 0; padding: 0 0 30px 0; width: 100%; }
 .movie h2 { margin: 0; }
 .movie-logo { margin-right: 10px; }
 .movie-synopses { clear: both; }
@@ -51,13 +57,13 @@ footer {
 .leia-mais { display: block; }
 .login {
 	position: absolute;
-	margin: -50px 0  0 calc(1000px - 242px); 
+	margin: -64px 0  0 calc(1000px - 262px); 
 	border: 1px solid #dddddd; border-radius: 5px; padding: 10px;
 	background-color: #fafafa;
 }
 .recommendation { 
 	position: inherit; top: 12px; text-align: center; 
-	width: 300px;
+	width: 295px;
 }
 .recommendation h3 { margin: 0; }
 .recommendation .box-rate {

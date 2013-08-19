@@ -95,7 +95,5 @@ $(function(){
 		$('.slider ul').animate({'margin-left': value}, 600);
 	});
 	
-	
-	
 
 });

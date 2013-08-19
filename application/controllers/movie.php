@@ -4,6 +4,7 @@ class Movie extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('moviesModel');
+		$this->load->model('genresModel');
 		$this->load->library('form_validation');
 	}
 
@@ -23,6 +24,8 @@ class Movie extends CI_Controller {
 		$movie['idmovie'] = $this->uri->segment(3, 4);
 		$data['movie'] = $this->moviesModel->get($movie);
 		$data['movie'] = $data['movie'][0];
+		$data['movie']['genres'] = $this->moviesModel->getGenres($movie);
+		$data['genres'] = $this->genresModel->get();
 		$this->template->load('template', 'movie/alter', $data);
 	}
 
@@ -57,11 +60,11 @@ class Movie extends CI_Controller {
 			return $this->alter();
 		}
 
-		$errors = $this->moviesModel->uploadImage();
-		if( $errors ){
+		// $errors = $this->moviesModel->uploadImage();
+		// if( $errors ){
 			// die(var_dump($_FILES));
-			die(var_dump($errors));
-		}
+			// die(var_dump($errors));
+		// }
 		$this->moviesModel->idmovie = $this->uri->segment(3);
 		$this->moviesModel->director = $this->input->post('director');
 		$this->moviesModel->title = $this->input->post('title');

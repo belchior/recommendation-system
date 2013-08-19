@@ -17,6 +17,7 @@
 		</header>
 		<article>
 			<?php echo isset($content) ? $content : ''?>
+			<label class="t-center"><a href="#" class="btn more-movies">Mais filmes</a></label>
 		</article>
 		<aside>
 			<?php
