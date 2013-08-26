@@ -2,7 +2,7 @@
 foreach( $movies as $movie ){
 	?>
 	<section class="f-left movie">
-		<h2><?="{$movie['title']} - {$movie['genre']}"?></h2>
+		<h2><a href="<?=base_url('movie/alter/'.normalize_url($movie['title']))?>"><?="{$movie['title']} - {$movie['genre']}"?></h2>
 		<div class="t-right box-rate" data-movieid="<?=$movie['idmovie']?>">
 			<?php
 			for( $i=1; $i <= 5; $i++ ){

@@ -4,6 +4,8 @@ body {
 	font-size: 1em;
 	
 	background-color: #eeeeee;
+	background-image: linear-gradient(to top, rgba(217,226,217,.3) 1px, transparent 1px);
+	background-size: 5px 5px;
 }
 
 h1 { font-size: 2em; }
@@ -35,6 +37,10 @@ footer {
 .t-center { text-align: center; }
 .t-right { text-align: right; }
 .t-justify { text-align: justify; }
+.m-left { margin-left: 10px; }
+.m-right { margin-right: 10px; }
+.m-top { margin-top: 10px; }
+.m-bottom { margin-bottom: 10px; }
 .hide { display: none; }
 .clear { clear: both; }
 .main { 
@@ -43,7 +49,8 @@ footer {
 	margin-left: calc(50% - 500px); 
 	padding: 0 10px;
 	width: 1000px; 
-	box-shadow: 0 0 10px #dddddd;
+	box-shadow: 0 0 10px 5px #dddddd;
+	background-color: rgba(255,255,255,0.5);
 }
 .movie { margin: 10px 0; border-bottom: solid #dddddd; border-width: 1px 0; padding: 0 0 30px 0; width: 100%; }
 .movie h2 { margin: 0; }

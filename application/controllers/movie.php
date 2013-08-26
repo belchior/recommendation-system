@@ -6,6 +6,7 @@ class Movie extends CI_Controller {
 		$this->load->model('moviesModel');
 		$this->load->model('genresModel');
 		$this->load->library('form_validation');
+		$this->load->helper('function');
 	}
 
 	public function index(){
@@ -13,26 +14,29 @@ class Movie extends CI_Controller {
 	}
 
 	public function create(){
-		
-		$this->template->load('template', 'movie/create');
+		$data['genres'] = $this->genresModel->get();
+		$this->template->load('template', 'movie/create', $data);
 	}
 
 	public function alter(){
 		$data['message'] = $this->session->userdata('message');
 		$this->session->unset_userdata('message');
 
-		$movie['idmovie'] = $this->uri->segment(3, 4);
+		$movie['url'] = $this->uri->segment(3, '');
 		$data['movie'] = $this->moviesModel->get($movie);
+		if( !$data['movie'] ){
+			redirect(base_url());
+		}
 		$data['movie'] = $data['movie'][0];
-		$data['movie']['genres'] = $this->moviesModel->getGenres($movie);
+		$data['movie']['genres'] = $this->moviesModel->getGenres($data['movie']);
 		$data['genres'] = $this->genresModel->get();
 		$this->template->load('template', 'movie/alter', $data);
 	}
 
 	public function save(){
-		$movie['idmovie'] = $this->uri->segment(3);
-		if( $movie['idmovie'] ){
-			$this->update();
+		$movie['url'] = $this->uri->segment(3);
+		if( $movie['url'] ){
+			$movie = (array)$this->update();
 			$this->session->set_userdata('message', 'Suas alterações foram salvas com sucesso.');
 			
 		} else {
@@ -40,7 +44,7 @@ class Movie extends CI_Controller {
 			$this->session->set_userdata('message', 'Filme salvo com sucesso.');
 		}
 
-		redirect(base_url("movie/alter/{$movie['idmovie']}"));
+		redirect(base_url("movie/alter/{$movie['url']}"));
 	}
 
 	private function insert(){
@@ -50,6 +54,7 @@ class Movie extends CI_Controller {
 		
 		$this->moviesModel->director = $this->input->post('director');
 		$this->moviesModel->title = $this->input->post('title');
+		$this->moviesModel->year = $this->input->post('year');
 		$this->moviesModel->synopses = $this->input->post('synopses');
 		$this->moviesModel->genres = $this->input->post('genres');
 		return $this->moviesModel->insert();
@@ -65,12 +70,15 @@ class Movie extends CI_Controller {
 			// die(var_dump($_FILES));
 			// die(var_dump($errors));
 		// }
-		$this->moviesModel->idmovie = $this->uri->segment(3);
+		
+		$this->moviesModel->idmovie = $this->input->post('idmovie');
 		$this->moviesModel->director = $this->input->post('director');
 		$this->moviesModel->title = $this->input->post('title');
+		$this->moviesModel->year = $this->input->post('year');
 		$this->moviesModel->synopses = $this->input->post('synopses');
 		$this->moviesModel->genres = $this->input->post('genres');
 		$this->moviesModel->update();
+		return $this->moviesModel;
 	}
 
 }

@@ -8,7 +8,8 @@ foreach( $attributes as $attr ){
 }
 ?>
 <h2><?php echo isset($message) && $message	? $message : ''?></h2>
-<?=form_open_multipart("movie/save/{$movie['idmovie']}", array('autocomplete'=>'off'))?>
+<?=form_open_multipart("movie/save/{$movie['url']}", array('autocomplete'=>'off'))?>
+	<input type="hidden" name="idmovie" value="<?=$movie['idmovie']?>">
 	<fieldset>
 		<legend>Filme</legend>
 		<label class="control-label bold">Diretor</label>
@@ -19,8 +20,15 @@ foreach( $attributes as $attr ){
 
 		<label class="control-label bold">Título</label>
 		<div class="control-group">
-			<input type="text" name="title"  class="span10" maxlength="100" value="<?=$movie['title']?>" required>
+			<input type="text" name="title" class="span10" maxlength="100" value="<?=$movie['title']?>" required>
 			<?=form_error('title')?>
+		</div>
+
+		<label class="control-label bold">Ano</label>
+		<div class="control-group">
+			<input 	type="text" name="year" class="span1" maxlength="4" value="<?=$movie['year']?>" required
+					pattern="\d{4}" title="Infore o ano do filme com 4 dígitos">
+			<?=form_error('year')?>
 		</div>
 
 		<label class="control-label bold">Sinopse</label>
@@ -48,7 +56,7 @@ foreach( $attributes as $attr ){
 					</label>
 				";
 				if( $i++ == 5 ){
-					echo '</div><div class="control-group f-left">';
+					echo '</div><div class="control-group f-left m-left">';
 				}
 			}
 			?>

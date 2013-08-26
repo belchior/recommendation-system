@@ -95,5 +95,8 @@ $(function(){
 		$('.slider ul').animate({'margin-left': value}, 600);
 	});
 	
+	$('.more-movies').on('click', function(){
+		$('body').animate({scrollTop:0}, 600);
+	});
 
 });
