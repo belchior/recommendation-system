@@ -17,7 +17,6 @@
 		</header>
 		<article>
 			<?php echo isset($content) ? $content : ''?>
-			<label class="t-center"><a href="#" class="btn more-movies">Mais filmes</a></label>
 		</article>
 		<aside>
 			<?php
@@ -44,7 +43,7 @@
 										}
 										?>
 									</div>
-									<img src="<?=IMG_DIR.$rec['logo']?>" alt="imagem" width="200" height="200">
+									<img src="<?=IMG_DIR.$rec['logo']?>" alt="imagem" width="214" height="317">
 								</li>
 								<?php
 							}

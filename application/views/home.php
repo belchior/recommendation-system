@@ -2,7 +2,10 @@
 foreach( $movies as $movie ){
 	?>
 	<section class="f-left movie">
-		<h2><a href="<?=base_url('movie/alter/'.normalize_url($movie['title']))?>"><?="{$movie['title']} - {$movie['genre']}"?></h2>
+		<h2>
+			<a href="<?=base_url('movie/alter/'.normalize_url($movie['title']))?>"><?="{$movie['title']}"?></a>
+		</h2>
+		<h5><?=$movie['genres']?></h5>
 		<div class="t-right box-rate" data-movieid="<?=$movie['idmovie']?>">
 			<?php
 			for( $i=1; $i <= 5; $i++ ){
@@ -15,7 +18,7 @@ foreach( $movies as $movie ){
 			?>
 		</div>
 		<p class="t-justify movie-synopses">
-			<img class="movie-logo f-left" alt="imagem" src="<?=IMG_DIR . $movie['logo']?>" width="200" height="200">
+			<img class="movie-logo f-left" alt="imagem" src="<?=IMG_DIR . $movie['logo']?>" width="214" height="317">
 			<?=$movie['synopses']?>
 		</p>
 		<a href="#" class="t-right leia-mais">leia mais</a>
@@ -23,3 +26,4 @@ foreach( $movies as $movie ){
 	<?php
 }
 ?>
+<label class="t-center"><a href="#" class="btn more-movies">Mais filmes</a></label>

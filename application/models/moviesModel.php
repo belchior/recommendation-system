@@ -18,10 +18,9 @@ class MoviesModel extends CI_Model {
 		isset($movie['idmovie']) ? $this->db->where('movies.idmovie', $movie['idmovie']) : false;
 		isset($movie['url']) ? $this->db->where('movies.url', normalize_url($movie['url'])) : false;
 
-		$this->db->join('movies_has_genres', 'movies.idmovie = movies_has_genres.idmovie', 'inner');
-		$this->db->join('genres', 'movies_has_genres.idgenre = genres.idgenre', 'inner');
 		$this->db->group_by('movies.idmovie');
 		$query = $this->db->get('movies');
+		// die(var_dump($this->db->last_query()));
 		return $query->result_array();
 	}
 

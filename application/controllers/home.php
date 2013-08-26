@@ -6,6 +6,14 @@ class Home extends CI_Controller {
 		$this->load->model('moviesModel');
 		$this->load->model('ratingsModel');
 		$data['movies'] = $this->moviesModel->get();
+		foreach( $data['movies'] as $key => $movie ){
+			$genres = array();
+			foreach( $this->moviesModel->getGenres($movie) as $genre ){
+				$genres[] = $genre['genre'];
+			}
+			$data['movies'][$key]['genres'] = implode(' | ', $genres);
+		}
+
 		$data['movies'] = $this->ratingsModel->generateRatings($data['movies'], $this->session->userdata('iduser'));
 		if( $user = $this->usersModel->getUserSession() ){
 			$data['recommendations'] = $this->ratingsModel->getUserRecommendations($user);
