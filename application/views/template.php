@@ -5,16 +5,26 @@
 	<meta charset="utf-8">
 	<link type="text/css" rel="stylesheet" href="<?=TP_DIR?>twitterbootstrap/css/bootstrap.min.css">
 	<link type="text/css" rel="stylesheet" href="<?=CSS_DIR?>main.css">
-	<script type="text/javascript" src="<?=TP_DIR?>jquery-2.0.1.min.js"></script>
-	<script async="async" type="text/javascript" src="<?=TP_DIR?>twitterbootstrap/js/bootstrap.min.js"></script>
-	<script async="async" type="text/javascript" src="<?=JS_DIR?>main.js"></script>
 </head>
 <body>
-	<div class="main">
-		<header>
-			<h1>Sistema de Recomendação</h1>
-			<?php echo isset($login) ? $login : ''?>
-		</header>
+	<header>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="brand" href="#">Sistema de Recomendação</a>
+					<div class="nav-collapse collapse">
+						<?=isset($login) ? $login : ''?>
+					</div>
+				</div>
+			</div>
+	    </div>
+	</header>
+	<div class="container">
 		<article>
 			<?php echo isset($content) ? $content : ''?>
 		</article>
@@ -30,7 +40,7 @@
 							foreach( $recommendations as $rec ){
 								?>
 								<li>
-									<h3><?=$rec['title']?></h3>
+									<h4><?=$rec['title']?></h4>
 									<div class="box-rate" data-movieid="<?=$rec['idmovie']?>">
 										<?php
 										for( $i=1; $i<=5; $i++ ){
@@ -57,7 +67,12 @@
 			}
 			?>
 		</aside>
-		<footer></footer>
 	</div>
+	<footer>
+		<div class="container">Sistema de Recomendações - Belchior Oliveira</div>
+	</footer>
+	<script type="text/javascript" src="<?=TP_DIR?>jquery-2.0.1.min.js"></script>
+	<script type="text/javascript" src="<?=TP_DIR?>twitterbootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<?=JS_DIR?>main.js"></script>
 </body>
 </html>

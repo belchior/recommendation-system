@@ -7,23 +7,20 @@ body {
 	background-image: linear-gradient(to top, rgba(217,226,217,.3) 1px, transparent 1px);
 	background-size: 5px 5px;
 }
-
-header {
-	float: left;
-	border-bottom: 1px solid #dddddd; width: 100%;
-}
-header h1 { margin: 20px 0; }
 article {
 	float: left;
 	margin-right: 10px; width: calc(70% - 10px);
 }
 aside {
-	float: left;
+	float: right;
+	margin-top: 70px;
 	width: 30%;
 }
 footer {
-	float: left;
+	padding: 10px 0;
 	width: 100%;
+	background-color: #1b1b1b;
+	color: #afafaf;
 }
 
 .bold { font-weight: bold;}
@@ -50,6 +47,7 @@ footer {
 }
 .movie { margin: 10px 0; border-bottom: solid #dddddd; border-width: 1px 0; padding: 0 0 30px 0; width: 100%; }
 .movie h2 { margin: 0; }
+.movie h2 a { color: inherit; }
 .movie h5 { margin: 0 0 10px 0; }
 .movie-logo { margin-right: 10px; }
 .movie-synopses { clear: both; }
@@ -66,7 +64,8 @@ footer {
 	background-color: #fafafa;
 }
 .recommendation { 
-	position: inherit; top: 12px; text-align: center; 
+	position: inherit; 
+	top: 50px; text-align: center; 
 	width: 295px;
 }
 .recommendation h3 { margin: 0; }

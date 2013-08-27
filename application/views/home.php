@@ -1,4 +1,8 @@
-<?php 
+<?=form_open_multipart("login", array('class'=>'form-search t-center', 'style'=>'margin-top: 80px;'))?>
+	<input type="search" name="search" class="span4" placeholder="Faça sua pesquisa aqui">
+  	<input type="submit" class="btn btn-success" value="Pesquisar">
+<?php
+echo form_close();
 foreach( $movies as $movie ){
 	?>
 	<section class="f-left movie">

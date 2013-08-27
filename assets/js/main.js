@@ -72,8 +72,8 @@ $(function(){
 		$('input[name=password]').focus();
 	});
 	
-	$(window).on('scroll', function(e){		
-		if( $(this).scrollTop() > 114 ){
+	$(window).on('scroll', function(e){
+		if( $(this).scrollTop() > 80 ){
 			$('.recommendation').css('position', 'fixed');
 		} else {
 			$('.recommendation').css('position', 'inherit');

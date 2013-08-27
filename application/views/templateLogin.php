@@ -1,10 +1,5 @@
-<?=form_open('login', array('class' => 'login'))?>
-	<div class="hide">
-		<label>Email</label>
-		<input type="text" name="email" maxlength="100">
-		<label>Senha</label>
-		<input type="password" name="password" maxlength="45">
-		<label></label>
-	</div>
-	<input type="submit" class="btn btn-primary btn-mini" value="Entrar">
+<?=form_open_multipart("login", array('class'=>'navbar-form pull-right'))?>
+	<input class="span2" type="text" name="email" placeholder="Email">
+	<input class="span2" type="password" name="password" placeholder="Senha">
+	<button type="submit" class="btn">Entrar</button>	
 <?=form_close()?>
