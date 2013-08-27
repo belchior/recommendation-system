@@ -10,8 +10,8 @@ class MoviesModel extends CI_Model {
 	public $director;
 	public $url;
 
-	public function __construc(){
-		parent::__construc();
+	public function __construct(){
+		parent::__construct();
 	}
 
 	public function get($movie = array()){
@@ -20,7 +20,19 @@ class MoviesModel extends CI_Model {
 
 		$this->db->group_by('movies.idmovie');
 		$query = $this->db->get('movies');
-		// die(var_dump($this->db->last_query()));
+		return $query->result_array();
+	}
+
+	public function search($search=''){
+		$this->db->join('movies_has_genres', 'movies.idmovie = movies_has_genres.idmovie', 'left');
+		$this->db->join('genres', 'movies_has_genres.idgenre = genres.idgenre', 'left');
+		$this->db->or_like('director', $search);
+		$this->db->or_like('title', $search);
+		$this->db->or_like('synopses', $search);
+		$this->db->or_like('year', $search);
+		$this->db->or_like('genre', $search);
+		$this->db->group_by('movies.idmovie');
+		$query = $this->db->get('movies');
 		return $query->result_array();
 	}
 

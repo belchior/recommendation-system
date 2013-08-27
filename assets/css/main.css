@@ -9,16 +9,15 @@ body {
 }
 article {
 	float: left;
-	margin-right: 10px; width: calc(70% - 10px);
+	margin: 41px 10px 0 0; width: calc(70% - 10px);
 }
 aside {
 	float: right;
-	margin-top: 70px;
+	margin-top: 41px;
 	width: 30%;
 }
 footer {
-	padding: 10px 0;
-	width: 100%;
+	margin-top: 40px; padding: 10px 0; width: 100%;
 	background-color: #1b1b1b;
 	color: #afafaf;
 }
@@ -90,8 +89,6 @@ footer {
     float: left;
     width: 300px;
 }
-.slider .back {}
-.slider .forward {}
 
 
 

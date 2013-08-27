@@ -2,23 +2,34 @@
 
 class Home extends CI_Controller {
 
-	public function index(){
+	public function __construct(){
+		parent::__construct();
 		$this->load->model('moviesModel');
-		$this->load->model('ratingsModel');
-		$data['movies'] = $this->moviesModel->get();
-		foreach( $data['movies'] as $key => $movie ){
-			$genres = array();
-			foreach( $this->moviesModel->getGenres($movie) as $genre ){
-				$genres[] = $genre['genre'];
-			}
-			$data['movies'][$key]['genres'] = implode(' | ', $genres);
-		}
+	}
 
-		$data['movies'] = $this->ratingsModel->generateRatings($data['movies'], $this->session->userdata('iduser'));
+	public function index(){
+		$data['movies'] = $this->moviesModel->get();
+		$data['movies'] = $this->parseMovies($data['movies']);
 		if( $user = $this->usersModel->getUserSession() ){
 			$data['recommendations'] = $this->ratingsModel->getUserRecommendations($user);
 		}
 		$this->template->load('template', 'home', $data);
+	}
+
+	private function parseMovies($movies){
+		$this->load->model('ratingsModel');
+
+		foreach( $movies as $key => $movie ){
+			$genres = array();
+			foreach( $this->moviesModel->getGenres($movie) as $genre ){
+				$genres[] = $genre['genre'];
+			}
+			$movies[$key]['genres'] = implode(' | ', $genres);
+		}
+
+		$movies = $this->ratingsModel->generateRatings($movies, $this->session->userdata('iduser'));
+
+		return $movies;
 	}
 	
 	public function login(){
@@ -46,5 +57,19 @@ class Home extends CI_Controller {
 		$this->load->library('form_validation');
 		$ths->form_validation->set_rules('username', 'Nome', ' ');
 	}
+
+	public function search(){
+		$this->input->is_ajax_request() ? true : die('Não foi possível completar sua requisição.');
+		$search = $this->uri->segment(2, '');
+		$search = urldecode($search);
+		$search = trim($search);
+		$search = addslashes($search);
+		
+		$data['movies'] = $this->moviesModel->search($search);
+		$data['movies'] = $this->parseMovies($data['movies']);
+		$data['search'] = $search;
+		$this->load->view('home', $data);
+	}
+
 }
 ?>

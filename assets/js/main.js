@@ -3,11 +3,12 @@ $(function(){
 		return 'http://localhost/tcc/'+segment;
 	}
 
-//	console.log();	
 	var IMG_DIR = 'assets/img/';
 	var oldStars = Array();
-	$('.rate')
-		.on('mouseenter', function(){
+	
+	/**	Home **/
+	$('article')
+		.on('mouseenter', '.rate', function(){
 			var rates = $(this).prevAll();
 			for (var i = 0; i < rates.length; i++){
 				oldStars[i] = $(rates[i]).find('img').attr('src');
@@ -16,21 +17,19 @@ $(function(){
 			oldStars[rates.length] = $(this).find('img').attr('src');
 			$(this).find('img').attr('src', IMG_DIR+'star-hover.png');
 		})
-		.on('mouseleave', function(){
+		.on('mouseleave', '.rate', function(){
 			var rates = $(this).prevAll();
 			for (var i = 0; i < rates.length; i++){
 				$(rates[i]).find('img').attr('src', oldStars[i]);
 			}
 			$(this).find('img').attr('src', oldStars[i]);
 		})
-		.on('click', function(e){
+		.on('click', '.rate', function(e){
 			e.preventDefault();
 			var rates = $(this).parent().children();
 			var myPosition = $(this).prevAll().length;
 			var movie = $(this).parents('.box-rate')[0].dataset.movieid;
-			
 			var value = myPosition+1;
-			
 			
 			for (var i = 0; i < rates.length; i++) {
 				if( i <= myPosition ){
@@ -53,24 +52,7 @@ $(function(){
 					
 				}
 			});
-		});
-
-	$('.login')
-		.on('mouseenter', function(){
-			$(this).find('.hide').slideDown();
-			$('input[name=username]').focus();
-		})
-		.on('mouseleave', function(){
-			$(this).find('.hide').slideUp();	
 		});	
-
-	$('.password-link').on('click', function(e){
-		e.preventDefault();
-		$('.password-link').hide();
-		$('.password-box').show();
-		$('input[name=validatePassword]').val('1');
-		$('input[name=password]').focus();
-	});
 	
 	$(window).on('scroll', function(e){
 		if( $(this).scrollTop() > 80 ){
@@ -97,6 +79,49 @@ $(function(){
 	
 	$('.more-movies').on('click', function(){
 		$('body').animate({scrollTop:0}, 600);
+	});
+	
+	// search
+	$('article').on('click', '.bt-search', function(){
+		var search = $('input[name=search]').val();
+		if( !search ){
+			return false;
+		}
+		$.ajax({
+			type: 'get',
+			dataType: 'html',
+			url: base_url('search/'+encodeURI(search)),
+			beforeSend: function(){
+				$('.form-search').append(
+					'<img src="'+base_url('assets/img/load.png')+'" alt="GIF load" width="30" height="30">'
+				);
+			},
+			success: function(html){
+				if( !html ){
+					html = 'Nenhum resultado encontrado';
+				}
+				
+				$('article').html(html);
+			},
+			complete: function(){
+				$('.form-search img').remove();
+			}
+		});
+	});
+	$('article').on('keypress', 'input[name=search]', function(e){
+		console.log(e.which);
+		if( e.which == 13 ){
+			$('.bt-search').trigger('click');
+		}
+	});
+	
+	/** User **/
+	$('.password-link').on('click', function(e){
+		e.preventDefault();
+		$('.password-link').hide();
+		$('.password-box').show();
+		$('input[name=validatePassword]').val('1');
+		$('input[name=password]').focus();
 	});
 
 });

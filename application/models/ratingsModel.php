@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class RatingsModel extends CI_Model{
 
-	public function __construc(){
-		parent::__construc();
+	public function __construct(){
+		parent::__construct();
 	}
 
 	public function insert($rate){

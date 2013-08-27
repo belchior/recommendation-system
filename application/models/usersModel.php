@@ -7,8 +7,8 @@ class usersModel extends CI_Model{
 	public $password;
 	public $image;
 
-	public function __construc(){
-		parent::__construc();
+	public function __construct(){
+		parent::__construct();
 	}
 
 	public function get($user){
