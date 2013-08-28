@@ -3,7 +3,7 @@ $(function(){
 		return 'http://localhost/tcc/'+segment;
 	}
 
-	var IMG_DIR = 'assets/img/';
+	var IMG_DIR = base_url('assets/img/');
 	var oldStars = Array();
 	
 	/**	Home **/

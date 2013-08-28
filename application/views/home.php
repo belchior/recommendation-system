@@ -25,10 +25,12 @@ if( isset($movies) && is_array($movies) && $movies ){
 				?>
 			</div>
 			<p class="t-justify movie-synopses">
-				<img class="movie-logo f-left" alt="imagem" src="<?=IMG_DIR . $movie['logo']?>" width="214" height="317">
+				<a href="<?=base_url('movie/show/'.$movie['url'])?>">
+					<img class="img-rounded movie-logo f-left" alt="imagem" src="<?=IMG_DIR . $movie['logo']?>" width="214" height="317">
+				</a>
 				<?=$movie['synopses']?>
 			</p>
-			<a href="#" class="t-right leia-mais">leia mais</a>
+			<a href="<?=base_url('movie/show/'.$movie['url'])?>" class="t-right leia-mais">leia mais</a>
 		</section>
 		<?php
 	}

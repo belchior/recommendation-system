@@ -9,29 +9,13 @@ class Home extends CI_Controller {
 
 	public function index(){
 		$data['movies'] = $this->moviesModel->get();
-		$data['movies'] = $this->parseMovies($data['movies']);
+		$data['movies'] = $this->moviesModel->parseMovies($data['movies']);
 		if( $user = $this->usersModel->getUserSession() ){
 			$data['recommendations'] = $this->ratingsModel->getUserRecommendations($user);
 		}
 		$this->template->load('template', 'home', $data);
 	}
 
-	private function parseMovies($movies){
-		$this->load->model('ratingsModel');
-
-		foreach( $movies as $key => $movie ){
-			$genres = array();
-			foreach( $this->moviesModel->getGenres($movie) as $genre ){
-				$genres[] = $genre['genre'];
-			}
-			$movies[$key]['genres'] = implode(' | ', $genres);
-		}
-
-		$movies = $this->ratingsModel->generateRatings($movies, $this->session->userdata('iduser'));
-
-		return $movies;
-	}
-	
 	public function login(){
 		$user['email'] = $this->input->post('email');
 		$user['password'] = $this->input->post('password');
@@ -66,7 +50,7 @@ class Home extends CI_Controller {
 		$search = addslashes($search);
 		
 		$data['movies'] = $this->moviesModel->search($search);
-		$data['movies'] = $this->parseMovies($data['movies']);
+		$data['movies'] = $this->moviesModel->parseMovies($data['movies']);
 		$data['search'] = $search;
 		$this->load->view('home', $data);
 	}

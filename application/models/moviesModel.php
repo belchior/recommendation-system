@@ -36,6 +36,22 @@ class MoviesModel extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function parseMovies($movies){
+		$this->load->model('ratingsModel');
+
+		foreach( $movies as $key => $movie ){
+			$genres = array();
+			foreach( $this->getGenres($movie) as $genre ){
+				$genres[] = $genre['genre'];
+			}
+			$movies[$key]['genres'] = implode(' | ', $genres);
+		}
+
+		$movies = $this->ratingsModel->generateRatings($movies, $this->session->userdata('iduser'));
+
+		return $movies;
+	}
+
 	public function insert(){
 		$this->db->set('director', $this->director);
 		$this->db->set('title', $this->title);

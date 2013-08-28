@@ -53,7 +53,7 @@
 										}
 										?>
 									</div>
-									<img src="<?=IMG_DIR.$rec['logo']?>" alt="imagem" width="214" height="317">
+									<img class="img-rounded" src="<?=IMG_DIR.$rec['logo']?>" alt="imagem" width="214" height="317">
 								</li>
 								<?php
 							}

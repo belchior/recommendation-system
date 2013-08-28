@@ -13,6 +13,21 @@ class Movie extends CI_Controller {
 		$this->create();
 	}
 
+	public function show(){
+		$movie['url'] = $this->uri->segment(3, '');
+		$data['movie'] = $this->moviesModel->get($movie);
+		$data['movie'] = $this->moviesModel->parseMovies($data['movie']);
+		if( !$data['movie'] ){
+			redirect(base_url());
+		}
+		$data['movie'] = $data['movie'][0];
+		if( $user = $this->usersModel->getUserSession() ){
+			$data['recommendations'] = $this->ratingsModel->getUserRecommendations($user);
+		}
+
+		$this->template->load('template', 'movie/show', $data);
+	}
+
 	public function create(){
 		$data['genres'] = $this->genresModel->get();
 		$this->template->load('template', 'movie/create', $data);
