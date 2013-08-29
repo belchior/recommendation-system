@@ -35,6 +35,12 @@ footer {
 .m-bottom { margin-bottom: 10px; }
 .hide { display: none; }
 .clear { clear: both; }
+.cl-blue { color: #0088cc; }
+.bg-white { 
+	margin-bottom: 10px; border: 1px solid #dddddd; border-radius: 5px; padding: 10px;
+	background-color: #ffffff;
+}
+
 .main { 
 	float: left;
 	box-sizing: border-box;
@@ -77,8 +83,6 @@ footer {
     height: 30px;
 }
 
-
-
 .slider {
     overflow: hidden;
     border: 1px solid #dddddd;
@@ -92,7 +96,16 @@ footer {
     float: left;
     width: 300px;
 }
-
-
+.make-comment { margin-top: 30px; }
+.make-comment textarea { 
+	width: calc(100% - 15px); 
+	max-width: 610px; height: 100px
+}
+.comment {
+	margin-top: 10px; border-radius: 5px; padding: 10px;
+	background-color: #F7F7F7;
+	box-shadow: 1px 1px #dddddd;
+}
+.comment label { color: #0088cc; }
 
 

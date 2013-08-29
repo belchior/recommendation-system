@@ -19,29 +19,32 @@
 		<img class="img-rounded f-left movie-logo" src="<?=IMG_DIR . $movie['logo']?>" alt="<?=$movie['title']?>" width="214" height="317">
 		<?=$movie['synopses']?>
 	</p>
-	<table class="table table-bordered table-condensed" style="background-color: #c9c9c9;">
-		<tr class="table-success t-center">
-			<th colspan="2">Ficha técnica</th>
-		</tr>
-		<tr>
-			<td>Título</td>
-			<td><?=$movie['title']?></td>
-		</tr>
-		<tr>
-			<td>Ano de publicação</td>
-			<td><?=$movie['year']?></td>
-		</tr>
-		<tr>
-			<td>Diretor</td>
-			<td><?=$movie['director']?></td>
-		</tr>
-		<tr>
-			<td>Generos</td>
-			<td><?=$movie['genres']?></td>
-		</tr>
-		<tr>
-			<td>Avaliação média</td>
-			<td><?=$movie['rating'] ? "{$movie['rating']} / 5" : 'Não avaliado'?></td>
-		</tr>
-	</table>
+	<div class="bg-white">
+		<h3>Ficha técnica</h3>
+		<table class="table table-bordered table-condensed">
+			<tr>
+				<td>Título</td>
+				<td><?=$movie['title']?></td>
+			</tr>
+			<tr>
+				<td>Ano de publicação</td>
+				<td><?=$movie['year']?></td>
+			</tr>
+			<tr>
+				<td>Diretor</td>
+				<td><?=$movie['director']?></td>
+			</tr>
+			<tr>
+				<td>Generos</td>
+				<td><?=$movie['genres']?></td>
+			</tr>
+			<tr>
+				<td>Avaliação média</td>
+				<td><?=$movie['rating'] ? "{$movie['rating']} / 5" : 'Não avaliado'?></td>
+			</tr>
+		</table>
+	</div>
+</section>
+<section class="f-left">
+	<?=$comments?>
 </section>

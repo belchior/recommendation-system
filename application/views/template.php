@@ -18,6 +18,9 @@
 					</button>
 					<a class="brand" href="#">Sistema de Recomendação</a>
 					<div class="nav-collapse collapse">
+						<ul class="nav">
+              				<li><a href="<?=base_url()?>">Home</a></li>
+              			</ul>
 						<?=isset($login) ? $login : ''?>
 					</div>
 				</div>

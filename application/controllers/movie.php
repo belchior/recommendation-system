@@ -22,9 +22,10 @@ class Movie extends CI_Controller {
 		}
 		$data['movie'] = $data['movie'][0];
 		if( $user = $this->usersModel->getUserSession() ){
+			$data['username'] = $user['username'];
 			$data['recommendations'] = $this->ratingsModel->getUserRecommendations($user);
 		}
-
+		$data['comments'] = $this->load->view('comments', $data, true);
 		$this->template->load('template', 'movie/show', $data);
 	}
 
