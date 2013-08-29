@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 *.DS_Store
 .buildpath
 .project
 *.settings
 tcc-diagram.mwb.bak
 user_guide/*
+=======
+*/config/development
+*/logs/log-*.php
+*/logs/!index.html
+*/cache/*
+*/cache/!index.html
+>>>>>>> 760f4e9687b4e1a7f496df01b1f523b5dfbaba69
