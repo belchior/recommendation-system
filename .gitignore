@@ -1,0 +1,15 @@
+*.buildpath
+*.project
+*.settings
+user_guide
+tcc-diagram.mwb.bak
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
