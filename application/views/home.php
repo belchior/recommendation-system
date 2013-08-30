@@ -10,7 +10,7 @@ if( isset($movies) && is_array($movies) && $movies ){
 		?>
 		<section class="f-left movie">
 			<h2>
-				<a href="<?=base_url('movie/alter/'.normalize_url($movie['title']))?>"><?="{$movie['title']}"?></a>
+				<a href="<?=base_url('movie/alter/'.$movie['url'])?>"><?="{$movie['title']}"?></a>
 			</h2>
 			<h5><?=$movie['genres']?></h5>
 			<div class="t-right box-rate" data-movieid="<?=$movie['idmovie']?>">
