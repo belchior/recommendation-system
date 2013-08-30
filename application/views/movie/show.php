@@ -1,6 +1,3 @@
-<?php
-// die(var_dump($movie));
-?>
 <section class="f-left movie">
 	<h1><?=$movie['title']?></h1>
 	<h5><?=$movie['genres']?></h5>
@@ -45,6 +42,4 @@
 		</table>
 	</div>
 </section>
-<section class="f-left">
-	<?=$comments?>
-</section>
+<section class="f-left comment-box"></section>

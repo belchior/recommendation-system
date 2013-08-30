@@ -25,7 +25,8 @@ class Movie extends CI_Controller {
 			$data['username'] = $user['username'];
 			$data['recommendations'] = $this->ratingsModel->getUserRecommendations($user);
 		}
-		$data['comments'] = $this->load->view('comments', $data, true);
+		$data['javascripts'][] = 'comments.js';
+		// $data['comments'] = $this->load->view('comments', $data, true);
 		$this->template->load('template', 'movie/show', $data);
 	}
 

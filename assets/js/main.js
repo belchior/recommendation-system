@@ -1,9 +1,11 @@
-$(function(){
-	function base_url(segment){
-		return 'http://localhost/tcc/'+segment;
-	}
+function base_url(segment){
+	return 'http://localhost/tcc/'+segment;
+}
 
-	var IMG_DIR = base_url('assets/img/');
+var IMG_DIR = base_url('assets/img/');
+
+$(function(){
+	
 	var oldStars = Array();
 	
 	/**	Home **/

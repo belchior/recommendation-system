@@ -77,5 +77,12 @@
 	<script type="text/javascript" src="<?=TP_DIR?>jquery-2.0.1.min.js"></script>
 	<script type="text/javascript" src="<?=TP_DIR?>twitterbootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<?=JS_DIR?>main.js"></script>
+	<?php
+	if( isset($javascripts) && is_array($javascripts) ){
+		foreach( $javascripts as $js ){
+			echo "<script type='text/javascript' src='".JS_DIR.$js."'></script>";
+		}
+	}
+	?>
 </body>
 </html>

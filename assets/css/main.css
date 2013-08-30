@@ -96,6 +96,8 @@ footer {
     float: left;
     width: 300px;
 }
+
+.comment-box { width: 100%; }
 .make-comment { margin-top: 30px; }
 .make-comment textarea { 
 	width: calc(100% - 15px); 

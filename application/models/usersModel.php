@@ -86,15 +86,17 @@ class usersModel extends CI_Model{
 		$this->session->unset_userdata($user);
 	}
 
-	public function getUserSession(){
+	public function getUserSession($attr=''){
 		if( !$this->session->userdata('iduser') ){
 			return false;
+		}
+		if( $attr ){
+			return $this->session->userdata($attr);
 		}
 		$user['iduser'] = $this->session->userdata('iduser');
 		$user['email'] = $this->session->userdata('email');
 		$user['username'] = $this->session->userdata('username');
 		$user['image'] = $this->session->userdata('image');
-		$user['preferences'] = $this->session->userdata('preferences');
 		return $user;
 	}
 

@@ -81,4 +81,11 @@ class Account extends CI_Controller{
 		$this->usersModel->update($user, $this->validatePassword);
 	}
 
+	public function islogged(){
+		if( $this->input->is_ajax_request() ){
+			$this->usersModel->getUserSession() ? die('1') : die();
+		}
+		return $this->usersModel->getUserSession();
+	}
+
 }
