@@ -95,7 +95,7 @@ $(function(){
 			url: base_url('search/'+encodeURI(search)),
 			beforeSend: function(){
 				$('.form-search').append(
-					'<img src="'+base_url('assets/img/load.png')+'" alt="GIF load" width="30" height="30">'
+					'<img src="'+base_url('assets/img/load.gif')+'" alt="GIF load" width="30" height="30">'
 				);
 			},
 			success: function(html){

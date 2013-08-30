@@ -5,7 +5,7 @@ $(function(){
 		dataType: 'html',
 		url: base_url('comment/get/'+$('.movie .box-rate')[0].dataset.movieid),
 		beforeSend: function(){
-			$('.comment-box').html('<p class="t-center"><img src="'+IMG_DIR+'load.png" alt="load GIF"></p>');
+			$('.comment-box').html('<p class="t-center"><img src="'+IMG_DIR+'load.gif" alt="load GIF"></p>');
 		},
 		success: function(comments){
 			$('.comment-box').html(comments);
