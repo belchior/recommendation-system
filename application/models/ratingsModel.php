@@ -108,7 +108,16 @@ class RatingsModel extends CI_Model{
 		return $query->num_rows() ? $query->result_array() : false;
 	}
 
-
+	public function getRecommendations($limit=10){
+		$this->db->select('movies.idmovie, movies.director, movies.title, movies.synopses, movies.logo, AVG(value) AS rating');
+		$this->db->join('movies_has_genres', 'movies_has_genres.idmovie = movies.idmovie', 'inner');
+		$this->db->join('ratings', 'ratings.idmovie = movies.idmovie', 'left');
+		$this->db->group_by('movies.idmovie');
+		$this->db->order_by('rating DESC');
+		$this->db->limit($limit);
+		$query = $this->db->get('movies');
+		return $query->num_rows() ? $query->result_array() : false;	
+	}
 
 
 

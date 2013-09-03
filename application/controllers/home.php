@@ -12,6 +12,8 @@ class Home extends CI_Controller {
 		$data['movies'] = $this->moviesModel->parseMovies($data['movies']);
 		if( $user = $this->usersModel->getUserSession() ){
 			$data['recommendations'] = $this->ratingsModel->getUserRecommendations($user);
+		} else {
+			$data['recommendations'] = $this->ratingsModel->getRecommendations();
 		}
 		$this->template->load('template', 'home', $data);
 	}
@@ -48,6 +50,7 @@ class Home extends CI_Controller {
 		$search = urldecode($search);
 		$search = trim($search);
 		$search = addslashes($search);
+		$search = strip_tags($search);
 		
 		$data['movies'] = $this->moviesModel->search($search);
 		$data['movies'] = $this->moviesModel->parseMovies($data['movies']);
